@@ -5,6 +5,8 @@ import random   # 取随机数
 from bs4 import BeautifulSoup # 用于代替正则式 取源码中相应标签中的内容
 import time # 时间相关操作
 
+reqCount = 0 # 程序访问页面总请求数量
+
 """
 获取html文档内容
 url     访问路径
@@ -39,6 +41,11 @@ def get_content(url,params):
             req = requests.get(url=url, headers=header, params=params,verify=False, timeout=timeout)
             # 设置页面编码
             req.encoding='utf-8'
+
+            # 计算程序访问页面总程序数量
+            global reqCount
+            cou = reqCount
+            reqCount = cou + 1
             break
         except Exception as e:
             # 输出请求失败信息
@@ -85,7 +92,7 @@ class downloader(object):
         # 判断章节数是否大于12，如果大于12则做特殊处理(从第一章开始)
         if len(a_s) >= 12:
             a_s = a_s[12:]
-        # a_s = a_s[0:1] # 测试使用，只取第一章
+        # a_s = a_s[0:5] # 测试使用，只取前五章
         # 目录总数量
         self.nums = len(a_s)
         # 循环获取章节名称&访问链接并放入对象中
@@ -108,6 +115,7 @@ class downloader(object):
         text = texts[0].text.replace('&nbsp', '')
         text = text.replace('<br>', '')
         text = text.replace('"', '')
+        text = text.replace('　　　　    ', '\n')
         # 返回解析完毕的文章内容
         return text
 
@@ -184,7 +192,7 @@ if __name__ == '__main__':
             print("查询结果为空，下载失败")
         else:
             # 输出查询记录数
-            print("查询记录数为：{}".format(len(ql.novelUrl)))
+            print("查询记录数为：{}".format(len(ql.novelUrl) - 1))
 
             # 搜索内容集合索引
             count = 0
@@ -227,7 +235,7 @@ if __name__ == '__main__':
                 print("下载结束时间为=>" + time.strftime("%Y{y}%m{m}%d{d} %H{h}%M{m1}%S{s}",time.localtime()).format(y="年",m="月",d="日",h="时",m1="分",s="秒"))
                 # 总耗时
                 print("总耗时：{}{}{}{}{}{}{}{}".format(int((endticks-beginticks)/(3600*24)),"天",int(((endticks-beginticks)%(3600*24))/3600),"时",int(((endticks-beginticks))/60),"分",int((endticks-beginticks)%60),"秒"))
-                print('下载完成！')
+                print('下载完成！本次程序访问页面总请求数量为 ' + str(reqCount))
                 # 退出程序
                 exit()
             except Exception as e:
