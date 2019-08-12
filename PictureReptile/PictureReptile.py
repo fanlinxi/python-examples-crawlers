@@ -1,4 +1,6 @@
-#  -*- coding:utf-8 -*-
+# !/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from requests import get
 from os import makedirs
 from os.path import exists
@@ -242,10 +244,8 @@ class queryPicture(object):
    主方法
 """
 if __name__ == '__main__':
-    while(True):
-
-        # 换行符
-        print('\n\n')
+    while True:
+        print("数据源为ZOL桌面壁纸 网址：http://desk.zol.com.cn/bizhi/，源代码网址：https://github.com/fanlinxi/python-examples-crawlers")
 
         # 选择壁纸类型
         wall_paper_id = input("壁纸类型：全部 1, 风景 2, 动漫 3, 美女 4, 创意 5, 卡通 6, 汽车 7, 游戏 8, 可爱 9, 明星 10, 建筑 11,\n         植物 12, 静物 13, 动物 14, 影视 15, 车模 16, 体育 17, 品牌 18, 星座 19, 美食 20, 节日 21, 其他 22\n请输入编号以便选择2K+超清壁纸类型：")
@@ -254,6 +254,7 @@ if __name__ == '__main__':
             wall_paper_id = input("壁纸类型：全部 1, 风景 2, 动漫 3, 美女 4, 创意 5, 卡通 6, 汽车 7, 游戏 8, 可爱 9, 明星 10, 建筑 11,\n         植物 12, 静物 13, 动物 14, 影视 15, 车模 16, 体育 17, 品牌 18, 星座 19, 美食 20, 节日 21, 其他 22\n请输入编号以便选择2K+超清壁纸类型：")
 
 
+        print("查询所有图片URL时间较长请耐心等待...")
         # # 初始化对象
         qp = queryPicture()
         # 获取所有图片下载URL开始时间
@@ -275,6 +276,7 @@ if __name__ == '__main__':
 
         print("\n即将开始下载 " + qp.PictureClassify + " 分类下所有图片,该分类下图片总数为：" + str(len(qp.picUrls)) + "套图总数为：" + str(len(qp.taoTuPicUrls)))
 
+        print("下载时间较长请耐心等待...")
         # 图片开始下载时间
         beginticks = time.time()
         print(qp.PictureClassify + " 分类下所有图片开始下载时间为：" + time.strftime("%Y{y}%m{m}%d{d} %H{h}%M{m1}%S{s}",time.localtime()).format(y="年",m="月",d="日",h="时",m1="分",s="秒"))

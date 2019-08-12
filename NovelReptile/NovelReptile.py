@@ -1,5 +1,6 @@
 # !/usr/bin/python
-#  -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
+
 import requests # 用来抓取网页的html源码
 import random   # 取随机数
 from bs4 import BeautifulSoup # 用于代替正则式 取源码中相应标签中的内容
@@ -179,9 +180,9 @@ class queryNovel(object):
 # 主方法
 if __name__ == '__main__':
     while True:
+        print("数据源为笔趣阁 网址：https://www.qu.la/ 源代码网址：https://github.com/fanlinxi/python-examples-crawlers")
         # 获取键盘输入的小说名称
         NovelName = input("请输入要下载的小说名称：")
-        #  NovelName = "圣墟"
         # 初始化对象
         ql = queryNovel()
 
@@ -189,7 +190,8 @@ if __name__ == '__main__':
         queryNovel.get_Novels_content(ql,NovelName)
         # 记录数为0提示查询结果为空，否则继续
         if len(ql.novelUrl) == 0:
-            print("查询结果为空，下载失败")
+            print("查询结果为空，下载失败,即将退出程序")
+            time.sleep(5)
         else:
             # 输出查询记录数
             print("查询记录数为：{}".format(len(ql.novelUrl) - 1))
@@ -216,6 +218,7 @@ if __name__ == '__main__':
                 while (int(NovelIndex) >= (len(ql.novelName) - 1)) or (int(NovelIndex) < 0):
                     NovelIndex = input("请输入要下载的小说索引：")
 
+                print("下载时间较长请耐心等待...")
                 # 开始下载时间
                 beginticks = time.time()
                 print("下载开始时间为：" + time.strftime("%Y{y}%m{m}%d{d} %H{h}%M{m1}%S{s}",time.localtime()).format(y="年",m="月",d="日",h="时",m1="分",s="秒"))
@@ -241,5 +244,6 @@ if __name__ == '__main__':
             except Exception as e:
                 # 输出异常信息
                 print('程序异常，终止程序，异常信息=>',e)
+                time.sleep(5)
                 # 退出程序
                 exit()

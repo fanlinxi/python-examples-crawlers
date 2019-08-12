@@ -1,9 +1,11 @@
+# !/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import re
 import os
 import shutil
 from concurrent.futures import ThreadPoolExecutor
 from urllib.request import urlretrieve
-
 import requests
 from scrapy import Selector
 
