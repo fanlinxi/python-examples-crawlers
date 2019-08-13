@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup   # 用于代替正则式 取源码中相应标签
 import time     # 时间相关操作
 import os       # 文件相关操作
 
-reqCount = 0
+reqCount = 0 # 程序访问页面总程序数量
 
 """
 获取html文档内容
@@ -64,8 +64,8 @@ def get_content(url,params):
 
 """
 文件下载器
-file_url            图片下载URL
-file_full_name      图片名称
+file_url            文件下载URL
+file_full_name      文件名称
 now_photo_count     当前下载数量
 all_photo_count     下载总数量
 """
@@ -98,7 +98,7 @@ def Down_load(file_url, file_full_name, now_photo_count, all_photo_count):
                         # 输出下载进度
                         print("\r %s：[%s%s] %d%% %d/%d" % (file_full_name, done_block * '█', ' ' * (50 - 1 - done_block), now_jd, now_photo_count, all_photo_count), end=" ")
         except Exception as e:
-            # 由于某些图片链接请求头中没有content-length属性，所以会进入catch操作，不输出下载进度，写入文件
+            # 由于某些文件链接请求头中没有content-length属性，所以会进入catch操作，不输出下载进度，但会写入文件
             r = requests.get(file_url)
             with open(file_full_name, "wb") as code:
                 code.write(r.content)
